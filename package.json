@@ -1,0 +1,80 @@
+{
+    "author": {
+        "name": "zorro901",
+        "url": "https://github.com/zorro901"
+    },
+    "description": "ESLint plugin for making your code easier to read",
+    "devDependencies": {
+        "@types/eslint": "8.44.3",
+        "@types/jest": "29.5.5",
+        "@typescript-eslint/eslint-plugin": "6.7.3",
+        "@typescript-eslint/parser": "6.7.3",
+        "@typescript-eslint/utils": "6.7.3",
+        "commitizen": "4.3.0",
+        "cz-conventional-changelog": "3.3.0",
+        "esbuild": "0.19.3",
+        "eslint": "8.50.0",
+        "eslint-plugin-eslint-plugin": "^5.1.1",
+        "eslint-remote-tester": "3.0.0",
+        "eslint-remote-tester-repositories": "1.0.1",
+        "husky": "8.0.3",
+        "jest": "29.7.0",
+        "lint-staged": "14.0.1",
+        "prettier": "3.0.3",
+        "semantic-release": "22.0.5",
+        "ts-jest": "29.1.1",
+        "typescript": "5.2.2"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "files": [
+        "dist"
+    ],
+    "keywords": [
+        "lint",
+        "code-style",
+        "typescript",
+        "eslint",
+        "react",
+        "react-hooks",
+        "hooks",
+        "eslint-plugin",
+        "eslintplugin"
+    ],
+    "lint-staged": {
+        "*.{ts,tsx,json,md}": "prettier --ignore-unknown --write",
+        "*.{ts,tsx}": "eslint --cache --fix"
+    },
+    "license": "Apache-2.0",
+    "main": "dist/index.js",
+    "name": "eslint-plugin-export-component",
+    "peerDependencies": {
+        "@eslint/js": "^8.50.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zorro901/eslint-plugin-collation.git"
+    },
+    "scripts": {
+        "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --external:eslint --external:@typescript-eslint/utils",
+        "build:dist": "tsc --noEmit && npm run build -- --minify",
+        "build:watch": "npm run build -- --watch",
+        "clean": "rm -rf dist",
+        "deploy:docs": "cd documentation && yarn install && USE_SSH=true yarn deploy",
+        "format:check": "prettier src --ignore-unknown --check",
+        "format:fix": "prettier src --ignore-unknown --write",
+        "lint": "eslint 'src/**/*.{ts,tsx}'",
+        "lint:fix": "npm run lint -- --fix",
+        "lint:remote": "eslint-remote-tester",
+        "prepare": "husky install",
+        "postpublish": "[[ $(git branch --show-current) == $git_main_branch ]] && npm run deploy:docs || echo \"Skipping deploy:docs\"",
+        "prepublishOnly": "npm run clean && npm run build",
+        "semantic-release": "semantic-release",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:watch:all": "jest --watchAll"
+    },
+    "type": "module",
+    "version": "0.0.0-development"
+}
