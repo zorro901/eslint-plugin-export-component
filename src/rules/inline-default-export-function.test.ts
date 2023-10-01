@@ -19,61 +19,61 @@ const errors = [
 ruleTester.run('inline-default-export-function', rule, {
   valid: [
     {
-      code: `export default function defaultExportFunction() {}`,
+      code: `export default function DefaultExportFunction() {}`,
     },
     {
       code: `
 function otherFunction() {}
-export default function defaultExportFunction() {}
+export default function DefaultExportFunction() {}
           `,
     },
   ],
   invalid: [
     {
       code: `
-function defaultExportFunction() {}
-export default defaultExportFunction;
+function DefaultExportFunction() {}
+export default DefaultExportFunction;
 `,
       output: `
-export default function defaultExportFunction() {}
+export default function DefaultExportFunction() {}
 
 `,
       errors,
     },
     {
       code: `
-export default defaultExportFunction
-function defaultExportFunction() {}
+export default DefaultExportFunction
+function DefaultExportFunction() {}
 `,
       output: `
 
-export default function defaultExportFunction() {}
+export default function DefaultExportFunction() {}
 `,
       errors,
     },
     {
       code: `
-export default defaultExportFunction
-function defaultExportFunction() {}
+export default DefaultExportFunction
+function DefaultExportFunction() {}
 function otherFunction() {}
     `,
       output: `
 
-export default function defaultExportFunction() {}
+export default function DefaultExportFunction() {}
 function otherFunction() {}
     `,
       errors,
     },
     {
       code: `
-function defaultExportFunction() {}
+function DefaultExportFunction() {}
 function otherFunction() {}
 function otherFunction1() {}
-export default defaultExportFunction
+export default DefaultExportFunction
 function otherFunction2() {}
     `,
       output: `
-export default function defaultExportFunction() {}
+export default function DefaultExportFunction() {}
 function otherFunction() {}
 function otherFunction1() {}
 

@@ -1,7 +1,11 @@
-import eslintPluginRecommended from 'eslint-plugin-eslint-plugin/configs/recommended'
-import js from '@eslint/js'
+const eslintPluginRecommended = require('eslint-plugin-eslint-plugin/configs/recommended')
+const js = require('@eslint/js')
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
-const configs = [js.configs.recommended, eslintPluginRecommended]
-
-export default configs
+module.exports = [
+  js.configs.recommended,
+  eslintPluginRecommended,
+  {
+    ignores: ['eslint.config.js'],
+  },
+]

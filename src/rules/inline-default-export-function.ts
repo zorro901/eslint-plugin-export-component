@@ -3,17 +3,15 @@ import type { Rule } from 'eslint'
 const rule: Rule.RuleModule = {
   meta: {
     fixable: 'code',
+    type: 'problem',
   },
   create: (context) => ({
     ExportDefaultDeclaration: (node) => {
-      if (
-        node.declaration.type !== 'Identifier' ||
-        /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/.test(context.filename)
-      ) {
-        return
-      }
-      const program = context.sourceCode.ast
+      if (node.declaration.type !== 'Identifier') return
       const ExportDefaultFunctionName = node.declaration.name
+      if (!/^[A-Z]/.test(ExportDefaultFunctionName)) return
+
+      const program = context.sourceCode.ast
       const targetNode = program.body.find(
         (n) =>
           n.type === 'FunctionDeclaration' &&
@@ -40,4 +38,4 @@ const rule: Rule.RuleModule = {
   }),
 }
 
-export default rule
+export = rule
