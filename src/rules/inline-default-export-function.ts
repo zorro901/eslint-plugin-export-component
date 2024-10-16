@@ -4,6 +4,11 @@ const rule: Rule.RuleModule = {
   meta: {
     fixable: 'code',
     type: 'problem',
+    messages: {
+      onlyExportFunction:
+        'Export should be done in the function declaration line.',
+    },
+    schema: [],
   },
   create: (context) => ({
     ExportDefaultDeclaration: (node) => {
@@ -25,7 +30,7 @@ const rule: Rule.RuleModule = {
 
       context.report({
         node,
-        message: 'Export should be done in the function declaration line.',
+        messageId: 'onlyExportFunction',
         fix: (fixer) => [
           fixer.insertTextBeforeRange(
             [targetNodeStart, targetNodeEnd],

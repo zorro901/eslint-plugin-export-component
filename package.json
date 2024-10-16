@@ -5,7 +5,9 @@
   },
   "description": "ESLint plugin for making your code easier to read",
   "devDependencies": {
+    "@eslint/js": "9.12.0",
     "@types/eslint": "9.6.1",
+    "@types/eslint__js": "8.42.3",
     "@types/jest": "29.5.13",
     "@typescript-eslint/eslint-plugin": "8.9.0",
     "@typescript-eslint/parser": "8.9.0",
@@ -23,7 +25,8 @@
     "semantic-release": "24.1.2",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
-    "typescript": "5.6.3"
+    "typescript": "5.5.4",
+    "typescript-eslint": "8.9.0"
   },
   "peerDependencies": {
     "@eslint/js": "8.57.0",
@@ -69,14 +72,14 @@
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --external:eslint --external:@typescript-eslint/utils",
-    "build:dist": "tsc --noEmit && pnpm build -- --minify",
-    "build:watch": "pnpm build -- --watch",
+    "build:dist": "tsc --noEmit && pnpm build --minify",
+    "build:watch": "pnpm build --watch",
     "clean": "pnpm dlx rimraf dist",
     "deploy:docs": "cd documentation && yarn install && USE_SSH=true yarn deploy",
     "format:check": "prettier src --ignore-unknown --check",
     "format:fix": "prettier src --ignore-unknown --write",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "lint:fix": "pnpm lint -- --fix",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "pnpm lint --fix",
     "lint:remote": "eslint-remote-tester",
     "prepare": "husky",
     "postpublish": "[[ $(git branch --show-current) == $git_main_branch ]] && pnpm deploy:docs || echo \"Skipping deploy:docs\"",
