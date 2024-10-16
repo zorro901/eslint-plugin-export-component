@@ -5,6 +5,10 @@ on:
     tags:
       - '*.*.*' # バージョンタグがついたときに実行
       - '*.*.*-alpha.*'  # アルファリリースタグを指定
+    branches: [ '*' ]
+  pull_request:
+    branches: [ main, alpha ]
+  workflow_dispatch:
 
 permissions:
   contents: write

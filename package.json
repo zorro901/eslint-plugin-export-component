@@ -83,7 +83,7 @@
   "name": "eslint-plugin-export-component",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zorro901/eslint-plugin-export-component.git"
+    "url": "git+https://github.com/zorro901/eslint-plugin-export-component.git"
   },
   "scripts": {
     "build": "tsup src/lib/index.ts --format cjs,esm --dts --clean",
@@ -110,7 +110,15 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/github"
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": true
+        }
+      ],
+      "@semantic-release/github",
+      "@semantic-release/git"
     ],
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",
@@ -126,5 +134,5 @@
     ],
     "tagFormat": "${version}"
   },
-  "version": "0.0.0-alpha.4"
+  "version": "0.0.0-alpha.2"
 }
