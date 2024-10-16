@@ -19,7 +19,7 @@
   },
   "description": "ESLint plugin for making your code easier to read",
   "devDependencies": {
-    "@eslint/js": "9.12.0",
+    "@eslint/js": "8.57.0",
     "@types/eslint": "9.6.1",
     "@types/eslint__js": "8.42.3",
     "@types/jest": "29.5.13",
@@ -30,7 +30,7 @@
     "cz-conventional-changelog": "3.3.0",
     "eslint": "9.12.0",
     "eslint-plugin-eslint-plugin": "6.2.0",
-    "eslint-plugin-n": "^17.11.1",
+    "eslint-plugin-n": "17.11.1",
     "eslint-remote-tester": "4.0.1",
     "eslint-remote-tester-repositories": "2.0.0",
     "husky": "9.1.6",
@@ -40,19 +40,13 @@
     "semantic-release": "24.1.2",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
-    "tsup": "^8.3.0",
+    "tsup": "8.3.0",
     "typescript": "5.5.4",
     "typescript-eslint": "8.9.0"
   },
   "peerDependencies": {
     "@eslint/js": "8.57.0",
     "esbuild": "0.20.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "read-pkg-up@11.0.0": "npm:read-package-up@11.0.0",
-      "glob@7.2.3": "npm:glob@11.0.0"
-    }
   },
   "overrides": {
     "read-pkg-up@11.0.0": "npm:read-package-up@11.0.0",
@@ -87,22 +81,19 @@
   },
   "scripts": {
     "build": "tsup src/lib/index.ts --format cjs,esm --dts --clean",
-    "build:dist": "tsc --noEmit && pnpm build --minify",
-    "build:watch": "pnpm build --watch",
-    "clean": "pnpm dlx rimraf dist",
-    "deploy:docs": "cd documentation && yarn install && USE_SSH=true yarn deploy",
-    "format:check": "prettier src/lib --ignore-unknown --check",
-    "format:fix": "prettier src/lib --ignore-unknown --write",
+    "build:dist": "tsc --noEmit && bun run build --minify",
+    "build:watch": "bun run build --watch",
+    "clean": "bunx rimraf dist",
+    "format:check": "prettier src/**/* --ignore-unknown --check",
+    "format:fix": "prettier src/**/* --ignore-unknown --write",
     "lint": "eslint \"src/lib/**/*.{ts,tsx}\"",
-    "lint:fix": "pnpm lint --fix",
-    "lint:remote": "eslint-remote-tester",
+    "lint:fix": "bun run lint --fix",
     "prepare": "husky",
-    "postpublish": "[[ $(git branch --show-current) == $git_main_branch ]] && pnpm deploy:docs || echo \"Skipping deploy:docs\"",
-    "prepublishOnly": "pnpm clean && pnpm build",
     "semantic-release": "semantic-release",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:watch:all": "jest --watchAll"
+    "test:watch:all": "jest --watchAll",
+    "preinstall": "npx only-allow bun"
   },
   "husky": {
     "hooks": {

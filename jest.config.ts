@@ -6,7 +6,7 @@ const config: Config = {
   preset: 'ts-jest',
   restoreMocks: true,
   testEnvironment: 'node',
-  silent: false,
+  silent: true,
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
