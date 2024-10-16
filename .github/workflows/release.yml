@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - '../../lib/**'
   workflow_dispatch:
 permissions:
   contents: write
