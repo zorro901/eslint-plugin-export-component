@@ -4,13 +4,19 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": ["es6"],
-    "module": "commonjs",
+    "module": "preserve",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
     "outDir": "dist",
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2021"
+    "target": "ESNext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["**/*.ts"]
 }
