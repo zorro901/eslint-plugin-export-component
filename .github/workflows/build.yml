@@ -16,16 +16,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: package install
+        run: bun install --ignore-scripts --frozen-lockfile
 
-      - name: bun install
-        run: bun install --ignore-scripts
-
-      - name: bun build:dist
+      - name: build:dist
         run: bun build:dist
 
-      - name: bun test
-        run: bun test
+      - name: test
+        run: bun run test
