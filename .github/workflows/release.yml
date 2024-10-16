@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*.*.*' # バージョンタグがついたときに実行
+      - '*.*.*-alpha.*'  # アルファリリースタグを指定
 
 permissions:
   contents: write
