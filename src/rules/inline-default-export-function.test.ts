@@ -3,11 +3,13 @@ import { RuleTester } from 'eslint'
 import rule from './inline-default-export-function'
 
 const ruleTester = new RuleTester({
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2015,
-    ecmaFeatures: {
-      jsx: true,
+  languageOptions: {
+    parserOptions: {
+      sourceType: 'module',
+      ecmaVersion: 2015,
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 })
