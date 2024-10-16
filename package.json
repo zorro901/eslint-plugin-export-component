@@ -20,6 +20,12 @@
   "description": "ESLint plugin for making your code easier to read",
   "devDependencies": {
     "@eslint/js": "8.57.0",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "13.0.0",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "11.0.0",
+    "@semantic-release/npm": "12.0.1",
+    "@semantic-release/release-notes-generator": "14.0.1",
     "@types/eslint": "9.6.1",
     "@types/eslint__js": "8.42.3",
     "@types/jest": "29.5.13",
@@ -41,12 +47,12 @@
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "tsup": "8.3.0",
-    "typescript": "5.5.4",
+    "typescript": "5.6.3",
     "typescript-eslint": "8.9.0"
   },
   "peerDependencies": {
     "@eslint/js": "8.57.0",
-    "esbuild": "0.20.2"
+    "esbuild": "0.24.0"
   },
   "overrides": {
     "read-pkg-up@11.0.0": "npm:read-package-up@11.0.0",
