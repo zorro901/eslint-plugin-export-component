@@ -2,13 +2,12 @@ name: release
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'src/**'
-  workflow_dispatch:
+    tags:
+      - 'v*.*.*'  # バージョンタグがついたときに実行
+
 permissions:
   contents: write
+
 jobs:
   release:
     env:

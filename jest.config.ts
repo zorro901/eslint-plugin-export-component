@@ -7,6 +7,9 @@ const config: Config = {
   restoreMocks: true,
   testEnvironment: 'node',
   silent: false,
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 }
 
 export default config

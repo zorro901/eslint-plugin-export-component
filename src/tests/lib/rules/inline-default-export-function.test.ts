@@ -1,6 +1,5 @@
 import { RuleTester } from 'eslint'
-
-import rule from './inline-default-export-function'
+import rule from '@/lib/rules/inline-default-export-function'
 
 const ruleTester = new RuleTester({
   languageOptions: {

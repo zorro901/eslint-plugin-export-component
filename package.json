@@ -3,6 +3,20 @@
     "name": "zorro901",
     "url": "https://github.com/zorro901"
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "require": {
+      "types": "./dist/index.d.cts",
+      "require": "./dist/index.cjs"
+    }
+  },
   "description": "ESLint plugin for making your code easier to read",
   "devDependencies": {
     "@eslint/js": "9.12.0",
@@ -16,6 +30,7 @@
     "cz-conventional-changelog": "3.3.0",
     "eslint": "9.12.0",
     "eslint-plugin-eslint-plugin": "6.2.0",
+    "eslint-plugin-n": "^17.11.1",
     "eslint-remote-tester": "4.0.1",
     "eslint-remote-tester-repositories": "2.0.0",
     "husky": "9.1.6",
@@ -25,6 +40,7 @@
     "semantic-release": "24.1.2",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
+    "tsup": "^8.3.0",
     "typescript": "5.5.4",
     "typescript-eslint": "8.9.0"
   },
@@ -64,21 +80,20 @@
     "*.{ts,tsx}": "eslint --cache --fix"
   },
   "license": "Apache-2.0",
-  "main": "dist/index.js",
   "name": "eslint-plugin-export-component",
   "repository": {
     "type": "git",
     "url": "https://github.com/zorro901/eslint-plugin-export-component.git"
   },
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --external:eslint --external:@typescript-eslint/utils",
+    "build": "tsup src/lib/index.ts --format cjs,esm --dts --clean",
     "build:dist": "tsc --noEmit && pnpm build --minify",
     "build:watch": "pnpm build --watch",
     "clean": "pnpm dlx rimraf dist",
     "deploy:docs": "cd documentation && yarn install && USE_SSH=true yarn deploy",
-    "format:check": "prettier src --ignore-unknown --check",
-    "format:fix": "prettier src --ignore-unknown --write",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier src/lib --ignore-unknown --check",
+    "format:fix": "prettier src/lib --ignore-unknown --write",
+    "lint": "eslint \"src/lib/**/*.{ts,tsx}\"",
     "lint:fix": "pnpm lint --fix",
     "lint:remote": "eslint-remote-tester",
     "prepare": "husky",
