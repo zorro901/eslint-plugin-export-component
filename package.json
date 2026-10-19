@@ -89,7 +89,7 @@
     "test:watch:all": "jest --watchAll",
     "preinstall": "npx only-allow bun"
   },
-  "version": "0.0.0-alpha.4",
+  "version": "0.0.0-alpha.3",
   "dependencies": {
     "@typescript-eslint/parser": "^8.71.2"
   }
