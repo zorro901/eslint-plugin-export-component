@@ -71,7 +71,7 @@
   "name": "eslint-plugin-export-component",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zorro901/eslint-plugin-export-component.git"
+    "url": "git+https://github.com/zorro901/eslint-plugin-export-component.git"
   },
   "scripts": {
     "build": "tsup src/lib/index.ts --format cjs,esm --dts --clean",

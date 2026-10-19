@@ -14,25 +14,14 @@ plugins:
   - "@semantic-release/release-notes-generator"
   - - "@semantic-release/changelog"
     - changelogFile: CHANGELOG.md
+  # npm publish is staged by the workflow (npm stage publish); this only bumps package.json
+  - - "@semantic-release/npm"
+    - npmPublish: false
   - - "@semantic-release/git"
     - assets:
         - CHANGELOG.md
         - package.json
-  - - "@semantic-release/npm"
-    - npmPublish: true
   - "@semantic-release/github"
-verifyConditions:
-  - "@semantic-release/changelog"
-  - "@semantic-release/github"
-  - "@semantic-release/npm"
-prepare:
-  - "@semantic-release/changelog"
-  - "@semantic-release/npm"
-  - - "@semantic-release/git"
-    - message: "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
-publish:
-  - "@semantic-release/github"
-  - "@semantic-release/npm"
 success: false
 fail: false
 tagFormat: "${version}"

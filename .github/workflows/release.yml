@@ -12,8 +12,6 @@ permissions:
 
 jobs:
   release:
-    env:
-      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
     name: semantic-release
     runs-on: ubuntu-latest
     steps:
@@ -49,5 +47,16 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: bunx semantic-release
+
+      # Trusted Publishing only allows staged publishes; approve on npmjs.com afterwards.
+      # Also re-stages a version whose npm publish failed in a previous run.
+      # ponytail: re-running while a version is staged but unapproved fails here; approve or reject it first.
+      - name: Stage npm publish
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "eslint-plugin-export-component@$version" version >/dev/null 2>&1; then
+            echo "$version already published"
+          else
+            npx -y npm@latest stage publish --tag "${{ github.ref_name == 'main' && 'latest' || github.ref_name }}"
+          fi
