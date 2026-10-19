@@ -42,6 +42,13 @@ export default function DefaultExportFunction() {}
       errors,
     },
     {
+      code: `function DefaultExportFunction() {}
+export default DefaultExportFunction`,
+      output: `export default function DefaultExportFunction() {}
+`,
+      errors,
+    },
+    {
       code: `
 export default DefaultExportFunction
 function DefaultExportFunction() {}

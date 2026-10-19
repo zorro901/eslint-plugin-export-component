@@ -2,12 +2,13 @@ name: release
 
 on:
   push:
-    tags:
-      - '*.*.*' # バージョンタグがついたときに実行
-      - '*.*.*-alpha.*'  # アルファリリースタグを指定
+    branches: [main, alpha, beta]
 
 permissions:
   contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
 
 jobs:
   release:
@@ -30,7 +31,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-bun-
 

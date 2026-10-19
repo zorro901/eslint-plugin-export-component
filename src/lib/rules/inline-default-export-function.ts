@@ -22,20 +22,14 @@ const rule: Rule.RuleModule = {
           n.type === 'FunctionDeclaration' &&
           n.id?.name === ExportDefaultFunctionName,
       )
-      const [targetNodeStart, targetNodeEnd] = targetNode?.range ?? [
-        undefined,
-        undefined,
-      ]
-      if (!targetNodeStart || !targetNodeEnd) return
+      const range = targetNode?.range
+      if (!range) return
 
       context.report({
         node,
         messageId: 'onlyExportFunction',
         fix: (fixer) => [
-          fixer.insertTextBeforeRange(
-            [targetNodeStart, targetNodeEnd],
-            'export default ',
-          ),
+          fixer.insertTextBeforeRange(range, 'export default '),
           fixer.remove(node),
         ],
       })
