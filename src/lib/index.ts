@@ -1,6 +1,6 @@
 import inLineDefaultExportFunction from '@/lib/rules/inline-default-export-function'
 import { parse, parseForESLint } from '@typescript-eslint/parser'
-import { ESLint } from 'eslint'
+import type { ESLint, Linter } from 'eslint'
 
 const plugin: ESLint.Plugin = {
   configs: {},
@@ -9,9 +9,10 @@ const plugin: ESLint.Plugin = {
   },
 }
 
-export const configs = {
+export const configs: { recommended: Linter.Config } = {
   recommended: {
     name: 'eslint-plugin-export-component/recommended',
+    files: ['**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
     plugins: {
       'eslint-plugin-export-component': plugin,
     },
@@ -23,15 +24,6 @@ export const configs = {
       globals: {
         console: 'readonly',
       },
-    },
-  },
-  /**
-   * @deprecated use recommended (flat) config instead
-   */
-  'recommended-legacy': {
-    plugins: ['eslint-plugin-export-component'],
-    rules: {
-      'eslint-plugin-export-component/inline-default-export-function': 'error',
     },
   },
 }
