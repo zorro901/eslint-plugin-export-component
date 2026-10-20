@@ -2,38 +2,39 @@ name: release
 
 on:
   push:
-    branches: [main, alpha, beta]
+    branches: [main]
+  # Re-stage the current package.json version (e.g. after a failed or rejected stage)
+  workflow_dispatch:
 
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  id-token: write
+permissions: {}
 
 jobs:
-  release:
-    env:
-      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-    name: semantic-release
+  release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        id: release
+
+  publish:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-
-      - name: Cache Bun dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -46,8 +47,10 @@ jobs:
       - name: build:dist
         run: bun run build:dist
 
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bunx semantic-release
+      # Trusted Publishing only allows staged publishes; approve on npmjs.com afterwards.
+      - name: Stage npm publish
+        run: |
+          version=$(node -p "require('./package.json').version")
+          tag=latest
+          case "$version" in *-*) tag=${version#*-}; tag=${tag%%.*} ;; esac
+          npx -y npm@latest stage publish --tag "$tag"
