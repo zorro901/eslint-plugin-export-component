@@ -20,12 +20,6 @@
   "description": "ESLint plugin for making your code easier to read",
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@semantic-release/changelog": "7.0.0",
-    "@semantic-release/commit-analyzer": "13.0.1",
-    "@semantic-release/git": "11.0.1",
-    "@semantic-release/github": "12.0.10",
-    "@semantic-release/npm": "13.2.0",
-    "@semantic-release/release-notes-generator": "14.1.1",
     "@types/jest": "30.0.0",
     "commitizen": "4.3.2",
     "cz-conventional-changelog": "3.3.0",
@@ -36,7 +30,6 @@
     "jest": "30.5.2",
     "lint-staged": "17.6.0",
     "prettier": "3.9.10",
-    "semantic-release": "25.0.9",
     "ts-jest": "29.4.15",
     "ts-node": "10.9.2",
     "tsup": "9.0.0",
@@ -71,7 +64,7 @@
   "name": "eslint-plugin-export-component",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zorro901/eslint-plugin-export-component.git"
+    "url": "git+https://github.com/zorro901/eslint-plugin-export-component.git"
   },
   "scripts": {
     "build": "tsup src/lib/index.ts --format cjs,esm --dts --clean",
@@ -83,13 +76,12 @@
     "lint": "eslint \"src/lib/**/*.{ts,tsx}\"",
     "lint:fix": "bun run lint --fix",
     "prepare": "husky",
-    "semantic-release": "semantic-release",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:watch:all": "jest --watchAll",
     "preinstall": "npx only-allow bun"
   },
-  "version": "0.0.0-alpha.4",
+  "version": "0.0.0-alpha.3",
   "dependencies": {
     "@typescript-eslint/parser": "^8.71.2"
   }
